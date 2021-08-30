@@ -1,0 +1,124 @@
+<div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" (click)="films()">Films</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link"  (click)="series()">Séries</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link"  (click)="emissions()">Émissions</a>
+                    </li>
+                 
+                  </ul>
+                  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search"  name="recherche" ngModel required #recherche="ngModel"  placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0"  type="submit" >Rechercher</button>
+                  </form>
+              
+                </div>
+              </nav>
+              
+     <div class="row">
+        <div *ngFor="let item of result"  (click)="open(mymodal,item.imdbID)"  class="col-4">
+                <div  class="card" style="width: 18rem;">
+                        <img class="card-img-top"  [src]="item.Poster">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.Title}}</h5>
+                          <p class="card-text"></p>
+                          <a class="btn btn-primary">Details</a>   
+                        </div>
+                      </div>
+
+        </div>
+     </div>
+
+     <div class="row d-flex justify-content-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+        
+          <li class="page-item"><a class="page-link" (click)="pagination('1')">1</a></li>
+          <li class="page-item"><a class="page-link" (click)="pagination('2')">2</a></li>
+          <li class="page-item"><a class="page-link" (click)="pagination('3')">3</a></li>
+         
+        </ul>
+      </nav>
+     </div>
+  </div> 
+
+
+
+   
+
+<ng-template #mymodal let-modal>
+
+  <div class="modal-header">
+
+    <h4 class="modal-title" id="modal-basic-title">{{details.Title}}</h4>
+
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      <span aria-hidden="true">×</span>
+
+    </button>
+
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+      <div   class="col-12">
+              <div  class="card" style="width: 100%;">
+                      <img class="card-img-top"  [src]="details.Poster">
+                      <div class="card-body">
+                        <h5 class="card-title">{{details.Title}}</h5>
+                        <p class="card-text">Année : {{details.Year}}</p>
+                        <p class="card-text">Date de sortie : {{details.Released}}</p>
+                        <p class="card-text">Durée : {{details.Runtime}}</p>
+                        <p class="card-text">Genre : {{details.Genre}}</p>
+                        <p class="card-text">Réalisateur : {{details.Director}}</p>
+                        <p class="card-text">Écriture : {{details.Writer}}</p>
+                        <p class="card-text">Acteurs : {{details.Actors}}</p>
+                        <p class="card-text">Synopsis : {{details.Plot}}</p>
+                        <p class="card-text">Langue : {{details.Language}}</p>
+                        <p class="card-text">Pays : {{details.Country}}</p>
+
+                        <p class="card-text">Awards : {{details.Awards}}</p>
+                        <p class="card-text">Notes : {{details.Ratings[0].Value}}</p>
+                        <p class="card-text">Notes imdb: {{details.imdbRating}}</p>
+
+                        <p class="card-text">Type: {{details.Type}}</p>
+                        
+                        <p class="card-text">Nombre de saisons: {{details.totalSeasons}}</p>
+
+
+
+
+                      </div>
+                    </div>
+
+      </div>
+   </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+
+  </div>
+
+</ng-template>
